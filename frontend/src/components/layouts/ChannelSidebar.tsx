@@ -10,6 +10,8 @@ interface ChannelSidebarProps {
 
 function ChannelSidebar({ serverId, onSelectChannel, onJoinVoiceChannel }: ChannelSidebarProps) {
 const [channels, setChannels] = useState<Channel[]>([]);
+const [newChannelName, setNewChannelName] = useState("");
+const [channelType, setChannelType] = useState("text");
 
 useEffect(() => {
     if (!serverId) {
@@ -37,9 +39,59 @@ const textChannels = channels.filter(channel => channel.type === "text");
 
 const voiceChannels = channels.filter(channel => channel.type === "voice");
 
+async function handleCreateChannel() {
+    
+    if (!serverId || !newChannelName.trim()) return;
+
+    try {
+        const response = await channelService.createChannel(
+            serverId,
+            newChannelName,
+            channelType
+        );
+
+        setChannels(prev => [
+            ...prev,
+            response.channel
+        ]);
+
+        setNewChannelName("");
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
     return (
         <aside className="channel-sidebar">
             <h2>Channels</h2>
+
+            <input
+                type="text"
+                placeholder="Channel name"
+                value={newChannelName}
+                onChange={(e) => setNewChannelName(e.target.value)}
+            />
+
+            <select
+                value={channelType}
+                onChange={(e) => setChannelType(e.target.value)}
+            >
+                <option value="text">
+                    Text
+                </option>
+
+                <option value="voice">
+                    Voice
+                </option>
+            </select>
+
+            <button
+                onClick={handleCreateChannel}
+                disabled={!serverId}
+            >
+                + Create channel
+            </button>
             
             <h3>Text Channels</h3>
 

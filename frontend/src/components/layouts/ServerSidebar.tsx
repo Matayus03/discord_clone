@@ -8,6 +8,7 @@ interface ServerSidebarProps {
 
 function ServerSidebar({ onSelectServer }: ServerSidebarProps) {
     const [servers, setServers] = useState<Server[]>([]);
+    const [newServerName, setNewServerName] = useState("");
 
     useEffect(() => {
         async function loadServers() {
@@ -26,10 +27,41 @@ function ServerSidebar({ onSelectServer }: ServerSidebarProps) {
         loadServers();
 
     }, []);
+
+    async function handleCreateServer() {
+        if (!newServerName.trim()) return;
+
+        try {
+            const response = await serverService.createServer(newServerName);
+
+            setServers(prev => [
+                ...prev,
+                response.server
+            ]);
+
+            setNewServerName("");
+
+            onSelectServer(response.server.id);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
     
     return (
         <aside className="server-sidebar">
             <h2>Servers</h2>
+
+            <input
+                type="text"
+                placeholder="Server name"
+                value={newServerName}
+                onChange={(e) => setNewServerName(e.target.value)}
+            />
+
+            <button onClick={handleCreateServer}>
+                + Create server
+            </button>
 
             {servers.map(server => (
                 <button

@@ -12,6 +12,15 @@ async function getServers(): Promise<Server[]> {
     return data;
 }
 
+async function createServer(name: string) {
+    const { data } = await api.post("/api/servers", {
+        name
+    });
+
+    return data;
+}
+
 export default {
-    getServers
+    getServers,
+    createServer
 };
