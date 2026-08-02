@@ -19,7 +19,7 @@ useEffect(() => {
 
     async function loadChannels()  {
         try {
-            const data = await channelService.getChannelsByServer(serverId);
+            const data = await channelService.getChannelsByServer(serverId!);
 
             setChannels(data);
 

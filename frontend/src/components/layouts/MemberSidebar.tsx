@@ -18,7 +18,7 @@ function MemberSidebar({ serverId }: MemberSidebarProps) {
 
         async function loadMembers() {
             try {
-                const data = await  memberService.getMembersByServer(serverId);
+                const data = await  memberService.getMembersByServer(serverId!);
 
                 console.log("MEMBERS:", data);
 

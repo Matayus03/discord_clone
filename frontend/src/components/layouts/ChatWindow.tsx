@@ -33,7 +33,7 @@ function ChatWindow ({ channelId }: ChatWindowProps) {
 
         async function loadMessages() {
             try {
-                const data = await messageService.getMessagesByChannel(channelId);
+                const data = await messageService.getMessagesByChannel(channelId!);
 
                 setMessages(data);
 

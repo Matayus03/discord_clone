@@ -228,7 +228,7 @@ function VoiceRoom({ channelId }: VoiceRoomProps) {
             peer = peerManager.createPeer(data.senderId);
         
             stream.getTracks().forEach(track => {
-                peer.addTrack(track, stream);
+                peer!.addTrack(track, stream);
             });
             
 
