@@ -48,6 +48,8 @@ function Login() {
                 <button type="submit">
                     Login
                 </button>
+
+                <button onClick={() => nav("/register")}>Don't have an account?</button>
             </form>
         </div>
     );
