@@ -36,6 +36,12 @@ async function testDb() {
     );
 }
 
+app.get("/", (req, res) => {
+    res.json({
+        message: "Discord clone backend online"
+    });
+})
+
 app.use("/auth", authRouter);
 
 app.use("/api", serverRouter);
