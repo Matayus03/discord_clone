@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://192.168.1.18:3000"
+    baseURL: "https://discord-clone-k3as.onrender.com"
 });
 
 api.interceptors.request.use((config) => {
