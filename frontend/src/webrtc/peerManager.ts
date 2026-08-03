@@ -11,7 +11,7 @@ class PeerManager {
         const peer = new RTCPeerConnection({
             iceServers: [
                 {
-                    urls: "stun:stun.1.google.com:19302"
+                    urls: "stun:stun.l.google.com:19302"
                 }
             ]
         });
